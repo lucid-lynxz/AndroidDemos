@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RecycleViewAnimationActivity"
+    tools:showIn="@layout/activity_recycle_view_animation">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_animation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_control"/>
+
+    <LinearLayout
+        android:id="@+id/ll_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_add"
+            style="@style/tv_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add"/>
+
+        <TextView
+            android:id="@+id/tv_remove"
+            style="@style/tv_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove"/>
+    </LinearLayout>
+
+</RelativeLayout>

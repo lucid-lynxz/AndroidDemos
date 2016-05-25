@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/it_horizontal"
+        android:icon="@drawable/menu_horizontal"
+        android:title="横排"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/it_vertical"
+        android:icon="@drawable/menu_vertical"
+        android:title="竖排"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/it_grid"
+        android:icon="@drawable/menu_grid"
+        android:title="网格"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/it_wrap_grid"
+        android:icon="@drawable/wrap_grid"
+        android:title="网格"
+        app:showAsAction="always"/>
+
+
+</menu>
