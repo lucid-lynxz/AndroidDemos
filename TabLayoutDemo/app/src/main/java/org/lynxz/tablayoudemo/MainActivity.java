@@ -42,8 +42,9 @@ public class MainActivity extends BaseActivity {
         mVp.setAdapter(mAdapter);
 
         mTl.setupWithViewPager(mVp);
-        //所有tab上的字母都大写了,暂时不知道怎么处理
-        mTl.getTabAt(0).setText("frag1@").setIcon(R.drawable.icon_x);
+        //所有tab上的字母都大写了,因为TabLayout创建的tab默认设置textAllCaps属性为true
+        //通过在xml中设置其tabTextAppearance属性设置即可
+        mTl.getTabAt(0).setText("frag1@");
 
         //关联ViewPager,这样就不需要手动去创建tab,也不需要去处理点击监听了
         mTlBottom.setupWithViewPager(mVp);
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
-        mIconIds = new int[]{R.drawable.icon_z, R.drawable.icon_x, R.drawable.icon_z};
+        mIconIds = new int[]{R.drawable.selector_z, R.drawable.selector_x, R.drawable.selector_z};
         mTabTitles = new String[]{"地理", "化学", "物理"};
     }
 }
