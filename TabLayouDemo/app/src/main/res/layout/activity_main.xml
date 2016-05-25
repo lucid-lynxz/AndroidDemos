@@ -18,6 +18,7 @@
         app:tabIndicatorHeight="1dp"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/theme_color"
+        app:tabTextAppearance="@style/TabLayoutTextAppearance"
         app:tabTextColor="@color/dialog_msg_color"/>
 
     <android.support.v4.view.ViewPager

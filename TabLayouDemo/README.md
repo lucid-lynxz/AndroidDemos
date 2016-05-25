@@ -16,6 +16,12 @@
     app:tabMode="scrollable"  // tab模式,fixed为固定模式,所有tab显示在一屏中,使用于少量标签
     app:tabSelectedTextColor="@color/theme_color"  // tab选中时,文本颜色
     app:tabTextColor="@color/dialog_msg_color"/>  // tab常规文本颜色
+    app:tabTextAppearance="@style/TabLayoutTextAppearance" //设置tab文本属性
+    
+<!-- style.xml 禁止所有字母默认大写的设定-->
+<style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+    <item name="textAllCaps">false</item>
+</style>
 ```
 
 ### 设定ViewPager适配器,提供TabLayout标题和自定义布局
@@ -48,6 +54,7 @@ public class VpBaseAdapter extends FragmentStatePagerAdapter {
 
 ### 使TabLayout与ViewPager关联
 ```java
+// 须在viewpager.setAdapter()之后调用
 mTl.setupWithViewPager(mVp);
 ```
 
@@ -72,4 +79,7 @@ Tab tab =  mTl.getTabAt(position);
 
 // 选中指定的tab
 tab.select();
+
+// 设置tabLayout模式
+mTl.setTabMode(TabLayout.MODE_SCROLLABLE);
 ```
