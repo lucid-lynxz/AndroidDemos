@@ -1,4 +1,6 @@
 # PopupWindow的简单使用
+![popupwindowf](http://upload-images.jianshu.io/upload_images/947286-2e50eef7b7ab6313.gif?imageMogr2/auto-orient/strip)
+
 1. 创建布局视图
 ```java
 View popView = getLayoutInflater().inflate(R.layout.yourLayoutId, null,false);
