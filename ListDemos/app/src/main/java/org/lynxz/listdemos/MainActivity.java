@@ -16,7 +16,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_gv_01, R.id.tv_gv_in_lv, R.id.tv_rv_basic, R.id.tv_item_anim_default})
+    @OnClick({R.id.tv_gv_01, R.id.tv_gv_in_lv, R.id.tv_rv_basic, R.id.tv_item_anim_default, R.id.tv_item_load_more})
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
@@ -31,6 +31,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_item_anim_default:
                 startActivity(new Intent(this, RecycleViewAnimationActivity.class));
+                break;
+            case R.id.tv_item_load_more:
+                startActivity(new Intent(this, LoadMoreRVActivity.class));
                 break;
         }
     }

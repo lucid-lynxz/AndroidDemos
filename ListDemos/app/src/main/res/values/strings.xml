@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ListDemos</string>
+    <string name="title_activity_load_more_rv">LoadMoreRVActivity</string>
 </resources>
