@@ -43,5 +43,12 @@
         android:layout_height="wrap_content"
         android:text="RecycleView 加载更多"/>
 
+    <TextView
+        android:id="@+id/tv_item_popup"
+        style="@style/tv_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="popupwindow 中的 RecycleView"/>
+
 
 </LinearLayout>

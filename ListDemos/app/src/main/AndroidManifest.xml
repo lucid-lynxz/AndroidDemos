@@ -24,6 +24,11 @@
             android:label="@string/title_activity_load_more_rv"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".PopupMenuRvActivity"
+            android:label="@string/title_activity_popup_menu_rv"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
