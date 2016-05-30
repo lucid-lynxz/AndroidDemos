@@ -50,5 +50,12 @@
         android:layout_height="wrap_content"
         android:text="popupwindow 中的 RecycleView"/>
 
+    <TextView
+        android:id="@+id/tv_item_rv_header"
+        style="@style/tv_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RecycleView 添加header"/>
+
 
 </LinearLayout>

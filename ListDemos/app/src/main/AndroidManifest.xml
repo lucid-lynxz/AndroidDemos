@@ -29,6 +29,11 @@
             android:label="@string/title_activity_popup_menu_rv"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".RvHeaderActivity"
+            android:label="@string/title_activity_rv_header"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
