@@ -1,6 +1,10 @@
 package org.lynxz.popupwindowdemo;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +57,10 @@ public class MainActivity extends BaseActivity {
             //        mPopupWindow.setAnimationStyle(R.style.reportChoosePageAnimation);
             // 点击其他地方消失
             mPopupWindow.setOutsideTouchable(true);
+            //得设置背景图案,不然在android6.0以下机子中,点击内容外部区域无法关闭
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.shape_bg);
+            Drawable drawable = new BitmapDrawable(getResources(), bmp);
+            mPopupWindow.setBackgroundDrawable(drawable);
             popView.findViewById(R.id.rl_close_choose_course_page).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

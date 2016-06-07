@@ -19,3 +19,5 @@ mPopupWindow.setOutsideTouchable(true);
 //显示在基准控件下方,用于代表下拉列表
 mPopupWindow.showAsDropDown(tvTitle);
  ```
+ 
+ P.S. 需要设置popupWindow的背景图片,不然在6.0以下机子中`setOutsideTouchable()`可能失效,原因请参考 [这篇文章](http://www.jianshu.com/p/7b42fc303bf8) ;
