@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="20dp"
+                android:paddingLeft="15dp">
+
+    <ImageView
+        android:id="@+id/iv_point"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/point_normal"/>
+
+    <TextView
+        android:id="@+id/view_line"
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/iv_point"
+        android:layout_marginLeft="4dp"
+        android:background="@color/time_line_normal"
+        android:minHeight="30dp"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="10dp"
+        android:text="时间轴"/>
+
+</RelativeLayout>

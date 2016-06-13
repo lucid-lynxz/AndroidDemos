@@ -34,6 +34,8 @@
             android:label="@string/title_activity_rv_header"
             android:theme="@style/AppTheme">
         </activity>
+        <activity android:name=".TimeLineActivity">
+        </activity>
     </application>
 
 </manifest>

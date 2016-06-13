@@ -17,7 +17,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @OnClick({R.id.tv_gv_01, R.id.tv_gv_in_lv, R.id.tv_rv_basic, R.id.tv_item_anim_default,
-            R.id.tv_item_load_more, R.id.tv_item_popup, R.id.tv_item_rv_header})
+            R.id.tv_item_load_more, R.id.tv_item_popup, R.id.tv_item_rv_header, R.id.tv_item_rv_time_line})
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
@@ -41,6 +41,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_item_rv_header:
                 startActivity(new Intent(this, RvHeaderActivity.class));
+                break;
+            case R.id.tv_item_rv_time_line:
+                startActivity(new Intent(this, TimeLineActivity.class));
                 break;
         }
     }

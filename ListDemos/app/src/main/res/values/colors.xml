@@ -7,4 +7,7 @@
 
     <color name="theme_color">#23A8A3</color>
     <color name="div_line">#e6e6e6</color>
+
+    <color name="time_line_normal">#cdcdcd</color>
+    <color name="time_line_finish">#f3a4a4</color>
 </resources>

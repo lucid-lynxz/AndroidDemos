@@ -57,5 +57,12 @@
         android:layout_height="wrap_content"
         android:text="RecycleView 添加header"/>
 
+    <TextView
+        android:id="@+id/tv_item_rv_time_line"
+        style="@style/tv_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="简单时间轴"/>
+
 
 </LinearLayout>
