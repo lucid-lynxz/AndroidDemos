@@ -72,3 +72,32 @@ Solo solo = new Solo(getInstrumentation(), getActivity());
 
 ## 黑盒测试
 待添加...
+
+
+## monkey
+还没单独写monkey的,直接补充在这里了,记录下碰到的问题
+1.  `E/hierarchyviewer: Unable to get view server version from device a5544648`
+在添加 `EasyMonkeyDevice` 的时候,真机会报上述错误,代码如下:
+```python
+    from com.android.monkeyrunner import MonkeyRunner,MonkeyDevice
+    from com.android.monkeyrunner import MonkeyImage
+    from com.android.monkeyrunner.easy import EasyMonkeyDevice
+    from com.android.monkeyrunner.easy import By
+    
+    device = MonkeyRunner.waitForConnection()
+    easy_device = EasyMonkeyDevice(device)
+    device.startActivity(component = 'com.nd.sdp.component.biz/com.nd.smartcan.appfactory.demo.SplashActivity')
+    easy_device.touch(By.id('id/btn_login'),MonkeyDevice.DOWN_AND_UP)
+```
+找半天,在 [这里](http://www.51testing.com/html/34/361634-3707866.html) 找到了解释,原来需要真机中开启一个View Server的客户端与其进行socket通信,而在商业手机上,是无法开启view server的.
+可以通过以下命令来查看/开关View server(我在自己未root的小米note上测试开启不成功):
+```shell
+    adb shell service call window 1 i32 4939 # 开启命令，用此命令开启
+
+    adb shell service call window 2 i32 4939 # 关闭命令
+
+    adb shell service call window 3 # 查看状态
+    # 若返回值是：Result: Parcel(00000000 00000001 '........') 说明View Server处于开启状态
+    # 若返回值是：Result: Parcel(00000000 00000000 '........') 说明View Server处于关闭状态
+```
+又发现篇开启 `View server`的 [文章](https://www.dup2.org/node/1538) ,不过我没去折腾了;
