@@ -117,7 +117,21 @@ android {
     }
 ```
 6. 运行测试工程(重点)
-这里就不能
+这里就不能直接右键运行test项目了,因为会把 `src/main` 和 `src/androidTest` 中的代码都打包安装,由于包名签名一致,main生成的apk会替换实际待测apk,而main中并无待测apk源码,导致test用例找不到所需页面/控件报错;
+所以这里得单独运行 `androidTest.apk` ,并手动启动它,方法就是在AS的 `Terminal` 窗口(当然也可以使用系统的命令行窗口) 输入如下指令:
+```shell
+gradlew clean
+gradlew assembleDebugAndroidTest # 生成test的apk包
+adb install -r app/build/outputs/apk/app-debug-androidTest-unaligned.apk # 安装测试用例包
+adb shell am instrument -w your_pkg_name.test/android.test.InstrumentationTestRunner # 运行
+```
+最后一步是运行指定的testRunner,有可能会报错:
+>INSTRUMENTATION_STATUS: Error=Unable to find instrumentation info for: ComponentInfo
+
+说明testRunner没有安装成功或者名字有写错,可以通过命令来查看已安装的runner:
+```java
+adb shell pm  list instrumentation
+```
 
 ## monkey
 还没单独写monkey的,直接补充在这里了,记录下碰到的问题
