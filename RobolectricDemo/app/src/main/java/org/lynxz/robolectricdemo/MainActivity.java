@@ -62,9 +62,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Button btnMain = findView(R.id.btn_main);
         Button btnDialog = findView(R.id.btn_main_dialog);
         Button btnToast = findView(R.id.btn_main_toast);
+        Button btnFrag = findView(R.id.btn_main_fragment);
         btnMain.setOnClickListener(this);
         btnDialog.setOnClickListener(this);
         btnToast.setOnClickListener(this);
+        btnFrag.setOnClickListener(this);
     }
 
     @Override
@@ -84,6 +86,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_main_toast:
                 showToast("hello");
+                break;
+            case R.id.btn_main_fragment:
+                startActivity(new Intent(this, FragmentActivity.class));
                 break;
         }
 

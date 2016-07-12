@@ -73,10 +73,15 @@ public class MainActivityTest {
     }
 
 
-    // 对retrofit api请求进行测试
+    /**
+     * 对retrofit api请求进行测试
+     * 走真实网络请求,并返回
+     * 执行时,通过toBlocking() 方法来阻塞直接显示结果
+     *
+     * @throws Exception
+     */
     @Test
     public void testRestApi() throws Exception {
-        // 走真是网络请求,并返回
         GithubApiService apiService = new GithubRetrofit().getApiService();
         Observable<List<Follower>> followers = apiService.getFollowers("lucid-lynxz");
         int size = followers.flatMap(Observable::from)
@@ -92,8 +97,10 @@ public class MainActivityTest {
     public void testGetCallback() throws Exception {
         GithubApiService apiService = new GithubRetrofit().getApiService();
         Call<List<Follower>> followers = apiService.getFollowersCall("lucid-lynxz");
-        // 立即执行,若写成 ollowers.enqueue(...) 则添加到队列后无法对结果进行处理
+        // 立即执行,若写成 followers.enqueue(...) 则添加到队列后无法对结果进行处理
         Response<List<Follower>> execute = followers.execute();
         System.out.println(" callback " + execute.body());
     }
+
+
 }

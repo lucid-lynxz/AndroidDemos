@@ -6,16 +6,16 @@
               android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_third"
+        android:id="@+id/tv_frag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="third_activity"
+        android:text="fragment"/>
+
+    <Button
+        android:id="@+id/btn_frag_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="toast"
         android:textAllCaps="false"/>
-
-    <RelativeLayout
-        android:id="@+id/rl_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 
 </LinearLayout>
