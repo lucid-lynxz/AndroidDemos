@@ -1,6 +1,6 @@
 package org.lynxz.robolectricdemo;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -95,14 +95,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void showCustomDialog() {
-        new AlertDialog.Builder(this).setTitle(R.string.hello).setMessage("world").show();
+        //        new AlertDialog.Builder(this).setTitle(R.string.hello).setMessage("world").show();
 
         // 使用下面自定义的dialog,在测试用用你总会报错:otFoundException: unknown resource ResName{org.lynxz.robolectricdemo:attr/null}
-        //        Dialog loadingDialog = new Dialog(this, R.style.loading_dialog);
-        //        View inflate = View.inflate(this, R.layout.layout_loading, null);
-        //        loadingDialog.setContentView(inflate);
-        //        loadingDialog.setCancelable(true);
-        //        loadingDialog.show();
+        Dialog loadingDialog = new Dialog(this, R.style.loading_dialog);
+        View inflate = View.inflate(this, R.layout.layout_loading, null);
+        loadingDialog.setContentView(inflate);
+        loadingDialog.setCancelable(true);
+        loadingDialog.show();
     }
 
     public void getGithubFollowers() {
