@@ -21,7 +21,7 @@ class RvAdapter(var cxt: Context, var data: List<String> = listOf<String>(), var
     override fun getItemCount() = 20
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
-        holder.tv.text = "位置 $position"
+        holder.tv.text = data[position]
     }
 
     class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
