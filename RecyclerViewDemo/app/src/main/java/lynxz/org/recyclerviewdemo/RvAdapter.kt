@@ -18,7 +18,7 @@ class RvAdapter(var cxt: Context, var data: List<String> = listOf<String>(), var
         return VHolder(view)
     }
 
-    override fun getItemCount() = 20
+    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
         holder.tv.text = data[position]

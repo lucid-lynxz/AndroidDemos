@@ -14,7 +14,7 @@ class MainActivity : BaseActivity() {
     override fun getLayoutId() = R.layout.activity_main
 
     override fun init() {
-        val data = (1..30).map { "pos $it" }
+        val data = (1..30).map { "pos $it" }.toMutableList()
         rv_main.layoutManager = GridLayoutManager(this, 3)
         rv_main.adapter = RvAdapter(this, data)
 
@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
              * 滑动完成时回调,这里设置为滑动删除,删除相应数据后刷新列表
              * */
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-                data.drop(viewHolder!!.adapterPosition)
+                data.removeAt(viewHolder!!.adapterPosition)
                 rv_main.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
             }
 
