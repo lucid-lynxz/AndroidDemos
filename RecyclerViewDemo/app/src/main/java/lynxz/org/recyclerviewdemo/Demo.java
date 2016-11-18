@@ -8,6 +8,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+
 /**
  * Created by Lynxz on 2016/11/18.
  * description :
@@ -22,6 +26,14 @@ public class Demo extends Activity {
 
             }
         }, 1000);
+
+        List<String> strs = new ArrayList<>();
+        strs.add("hello");
+        strs.add("hello1");
+        strs.add("hello2");
+        strs.add("hello3");
+
+        List<String> data = new ArrayList<>(new TreeSet<>(strs));
 
         RecyclerView rv = new RecyclerView(this);
         rv.addOnItemTouchListener(new OnRecyclerItemClickListener(rv){
