@@ -92,7 +92,8 @@ class DragSwipeActivity : BaseActivity() {
             override fun isItemViewSwipeEnabled() = true
 
             /**
-             * Item是否可以长按
+             * Item是否可以长按,默认返回true,所有itemView都可以拖拽
+             * 如果需要自定义拖拽的item,则可以返回false,然后手动调用 startDrag(ViewHolder) 即可
              * */
             override fun isLongPressDragEnabled() = true
 

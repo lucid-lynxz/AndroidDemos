@@ -7,7 +7,7 @@ import android.view.MotionEvent
 
 /**
  * Created by Lynxz on 2016/11/18.
- * description :
+ * description : http://blog.csdn.net/liaoinstan/article/details/51200600
  */
 abstract class OnRecyclerItemClickListener(private val recyclerView: RecyclerView) : RecyclerView.OnItemTouchListener {
     private val mGestureDetector: GestureDetectorCompat
