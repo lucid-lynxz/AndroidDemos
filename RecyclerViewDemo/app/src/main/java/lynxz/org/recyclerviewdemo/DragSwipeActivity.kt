@@ -6,6 +6,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import kotlinx.android.synthetic.main.activity_rv.*
 import java.util.*
 
+
 /**
  * Created by Lynxz on 2016/11/18.
  * description : 拖拽-滑动 item 示例
@@ -19,10 +20,24 @@ class DragSwipeActivity : BaseActivity() {
         rv_main.layoutManager = GridLayoutManager(this, 3)
         rv_main.adapter = RvAdapter(this, data)
 
+        // 添加点击事件
+        val clickListener: OnRecyclerItemClickListener = object : OnRecyclerItemClickListener(rv_main) {
+            override fun <T : RecyclerView.ViewHolder> onItemClick(vh: T) {
+                if (vh is RvAdapter.VHolder) {
+                    toast("${vh.tv.text}")
+                }
+            }
+
+            override fun <T : RecyclerView.ViewHolder> onItemLongClick(vh: T) {
+            }
+        }
+
+        rv_main.removeOnItemTouchListener(clickListener)
+        rv_main.addOnItemTouchListener(clickListener)
+
         // 添加滑动/拖拽功能
         // java的匿名内部类对应过来就是object对象表达式了
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
-//            var vh: RecyclerView.ViewHolder? = null
 
             /**
              * 设置itemView可以移动的方向
@@ -35,31 +50,6 @@ class DragSwipeActivity : BaseActivity() {
                 val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
                 return makeMovementFlags(dragFlags, swipeFlags)
             }
-
-//            /**
-//             *  在某个Item被拖动和移动的时候回调
-//             */
-//            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-//                super.onSelectedChanged(viewHolder, actionState)
-//                // 也可以在这里设置拖拽过程中背景色加深,然后重写clearView()在放开后恢复背景,不过我感觉没必要
-//                // if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-//                //     viewHolder!!.itemView.setBackgroundColor(Color.LTGRAY);
-//                // }
-//
-//                // 当viewHolder不为空时为选中状态,否则为释放状态,然后对itemView进行上浮/下沉动画
-//                // 测试后没效果,故取消掉
-//                // if (viewHolder != null) {
-//                //     vh = viewHolder
-//                //     touchAnimation(viewHolder.itemView, 0)
-//                // } else {
-//                //     touchAnimation(vh!!.itemView, 1)
-//                // }
-//            }
-//
-//            override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?) {
-//                super.clearView(recyclerView, viewHolder)
-//                viewHolder!!.itemView.setBackgroundColor(0);
-//            }
 
             /**
              * 当一个Item被另外的Item替代时回调,也就是数据集的内容顺序改变
@@ -108,17 +98,4 @@ class DragSwipeActivity : BaseActivity() {
 
         }).attachToRecyclerView(rv_main)
     }
-
-//    /**
-//     * direction : 指明itemView是上浮还是下沉,当某个itemView被选中时,则其上浮
-//     * */
-//    private fun touchAnimation(view: View, direction: Int) {
-//        val animator = if (direction == 0)
-//            ObjectAnimator.ofFloat(view, "translationZ", 0f, 10f)
-//        else
-//            ObjectAnimator.ofFloat(view, "translationZ", 10f, 0f)
-//        animator.interpolator = DecelerateInterpolator()
-//        animator.duration = 10
-//        animator.start()
-//    }
 }

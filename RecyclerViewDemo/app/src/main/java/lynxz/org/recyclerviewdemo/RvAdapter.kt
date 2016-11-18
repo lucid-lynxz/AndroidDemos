@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 
 /**
  * Created by Lynxz on 2016/11/16.
@@ -29,9 +28,9 @@ class RvAdapter(var cxt: Context, var data: List<String> = listOf<String>(), var
 
     override fun onBindViewHolder(holder: VHolder, position: Int) {
         holder.tv.text = data[position]
-        holder.itemView.setOnClickListener {
-            Toast.makeText(cxt, "${holder.tv.text}", Toast.LENGTH_SHORT).show()
-        }
+//        holder.itemView.setOnClickListener {
+//            Toast.makeText(cxt, "${holder.tv.text}", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     class VHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
