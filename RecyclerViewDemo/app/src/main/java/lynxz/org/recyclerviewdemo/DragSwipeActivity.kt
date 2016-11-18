@@ -17,7 +17,8 @@ class DragSwipeActivity : BaseActivity() {
     override fun getLayoutId() = R.layout.activity_rv
 
     override fun init() {
-        val data = (1..20).map { "pos $it" }.toMutableList()
+        val data = (1..10).map { "pos $it" }.toMutableList()
+        data.map { logi("$it") }
         rv_main.layoutManager = GridLayoutManager(this, 3)
         rv_main.adapter = RvAdapter(this, data)
 
@@ -38,19 +39,19 @@ class DragSwipeActivity : BaseActivity() {
                 return makeMovementFlags(dragFlags, swipeFlags)
             }
 
-            /**
-             *  在某个Item被拖动和移动的时候回调,这里我们用来播放动画
-             *  当viewHolder不为空时为选中状态,否则为释放状态
-             */
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                super.onSelectedChanged(viewHolder, actionState)
-                if (viewHolder != null) {
-                    vh = viewHolder
-                    touchAnimation(viewHolder.itemView, 0)
-                } else {
-                    touchAnimation(vh!!.itemView, 1)
-                }
-            }
+//            /**
+//             *  在某个Item被拖动和移动的时候回调,这里我们用来播放动画
+//             *  当viewHolder不为空时为选中状态,否则为释放状态
+//             */
+//            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+//                super.onSelectedChanged(viewHolder, actionState)
+////                if (viewHolder != null) {
+////                    vh = viewHolder
+////                    touchAnimation(viewHolder.itemView, 0)
+////                } else {
+////                    touchAnimation(vh!!.itemView, 1)
+////                }
+//            }
 
             /**
              * 当一个Item被另外的Item替代时回调,也就是数据集的内容顺序改变
@@ -66,8 +67,17 @@ class DragSwipeActivity : BaseActivity() {
             override fun onMoved(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, fromPos: Int, target: RecyclerView.ViewHolder?, toPos: Int, x: Int, y: Int) {
                 super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
                 // 移动完成后修改列表位置并刷新列表
-                Collections.swap(data, viewHolder!!.adapterPosition, target!!.adapterPosition)
+                if (fromPos < toPos) {
+                    for (i in fromPos..toPos - 1) {
+                        Collections.swap(data, i, i + 1)
+                    }
+                } else {
+                    for (i in fromPos downTo toPos + 1) {
+                        Collections.swap(data, i, i - 1)
+                    }
+                }
                 rv_main.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
+                data.map { logi("$it") }
             }
 
             /**
@@ -96,11 +106,10 @@ class DragSwipeActivity : BaseActivity() {
      * direction : 指明itemView是上浮还是下沉,当某个itemView被选中时,则其上浮
      * */
     private fun touchAnimation(view: View, direction: Int) {
-        logi("direction $direction")
         val animator = if (direction == 0)
-            ObjectAnimator.ofFloat(view, "translationZ", 1f, 100f)
+            ObjectAnimator.ofFloat(view, "translationZ", 0f, 10f)
         else
-            ObjectAnimator.ofFloat(view, "translationZ", 100f, 1f)
+            ObjectAnimator.ofFloat(view, "translationZ", 10f, 0f)
         animator.interpolator = DecelerateInterpolator()
         animator.duration = 10
         animator.start()

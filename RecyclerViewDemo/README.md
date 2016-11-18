@@ -17,75 +17,61 @@ recyclerView.adapter.notifyItemRemoved(removePos)
 ## ItemTouchHelper
 拖拽改变item位置以及滑动删除功能我们使用系统提供的 `ItemTouchHelper` 即可
 ```Kotlin
-        // 添加滑动/拖拽功能
-        // java的匿名内部类对应过来就是object对象表达式了
-        ItemTouchHelper(object : ItemTouchHelper.Callback() {
-            var vh: RecyclerView.ViewHolder? = null
+// 添加滑动/拖拽功能
+// java的匿名内部类对应过来就是object对象表达式了
+ItemTouchHelper(object : ItemTouchHelper.Callback() {
+    var vh: RecyclerView.ViewHolder? = null
 
-            /**
-             * 设置itemView可以移动的方向
-             * */
-            override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
-                // 拖拽的标记，这里允许上下左右四个方向
-                val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or
-                        ItemTouchHelper.RIGHT
-                // 滑动的标记，这里允许左右滑动
-                val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
-                return makeMovementFlags(dragFlags, swipeFlags)
-            }
+    /**
+     * 设置itemView可以移动的方向
+     * */
+    override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
+        // 拖拽的标记，这里允许上下左右四个方向
+        val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or
+                ItemTouchHelper.RIGHT
+        // 滑动的标记，这里允许左右滑动
+        val swipeFlags = ItemTouchHelper.START or ItemTouchHelper.END
+        return makeMovementFlags(dragFlags, swipeFlags)
+    }
 
-            /**
-             *  在某个Item被拖动和移动的时候回调,这里我们用来播放动画
-             *  当viewHolder不为空时为选中状态,否则为释放状态
-             */
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                super.onSelectedChanged(viewHolder, actionState)
-                if (viewHolder != null) {
-                    vh = viewHolder
-                    touchAnimation(viewHolder.itemView, 0)
-                } else {
-                    touchAnimation(vh!!.itemView, 1)
-                }
-            }
+    /**
+     * 当一个Item被另外的Item替代时回调,也就是数据集的内容顺序改变
+     * 返回true, onMoved()才会进行
+     * */
+    override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
+        return true
+    }
 
-            /**
-             * 当一个Item被另外的Item替代时回调,也就是数据集的内容顺序改变
-             * 返回true, onMoved()才会进行
-             * */
-            override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
-                return true
-            }
+    /**
+     *  当onMove返回true的时候回调,刷新列表
+     * */
+    override fun onMoved(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, fromPos: Int, target: RecyclerView.ViewHolder?, toPos: Int, x: Int, y: Int) {
+        super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
+        // 移动完成后修改列表位置并刷新列表
+        Collections.swap(data, viewHolder!!.adapterPosition, target!!.adapterPosition)
+        recyclerView.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
+    }
 
-            /**
-             *  当onMove返回true的时候回调,刷新列表
-             * */
-            override fun onMoved(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, fromPos: Int, target: RecyclerView.ViewHolder?, toPos: Int, x: Int, y: Int) {
-                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
-                // 移动完成后修改列表位置并刷新列表
-                Collections.swap(data, viewHolder!!.adapterPosition, target!!.adapterPosition)
-                recyclerView.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
-            }
+    /**
+     * 滑动完成时回调,这里设置为滑动删除,删除相应数据后刷新列表
+     * */
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+        data.removeAt(viewHolder!!.adapterPosition)
+        recyclerView.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
+        toast("删除成功")
+    }
 
-            /**
-             * 滑动完成时回调,这里设置为滑动删除,删除相应数据后刷新列表
-             * */
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-                data.removeAt(viewHolder!!.adapterPosition)
-                recyclerView.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
-                toast("删除成功")
-            }
+    /**
+     * Item是否可以滑动
+     * */
+    override fun isItemViewSwipeEnabled() = true
 
-            /**
-             * Item是否可以滑动
-             * */
-            override fun isItemViewSwipeEnabled() = true
+    /**
+     * Item是否可以长按
+     * */
+    override fun isLongPressDragEnabled() = true
 
-            /**
-             * Item是否可以长按
-             * */
-            override fun isLongPressDragEnabled() = true
-
-        }).attachToRecyclerView(recyclerView)
+}).attachToRecyclerView(recyclerView)
 ```
 
 ![拖拽-滑动效果](./res/drag_swipe.gif)
