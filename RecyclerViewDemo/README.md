@@ -1,26 +1,22 @@
-package lynxz.org.recyclerviewdemo
+# RecyclerViewDemo
+简单的 defaultItemAnimator 效果以及启用 拖拽-滑动删除 效果
 
-import android.animation.ObjectAnimator
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.View
-import android.view.animation.DecelerateInterpolator
-import kotlinx.android.synthetic.main.activity_rv.*
-import java.util.*
+使用语言: `Kotlin`
 
-/**
- * Created by Lynxz on 2016/11/18.
- * description : 拖拽-滑动 item 示例
- */
-class DragSwipeActivity : BaseActivity() {
-    override fun getLayoutId() = R.layout.activity_rv
+## defaultItemAnimator 
+```Kotlin
+//设置recyclerview的动画
+recyclerView.itemAnimator = DefaultItemAnimator()
+//添加或删除数据源后,要调用如下方法才有动画效果
+recyclerView.adapter.notifyItemRangeInserted(addPos, addItemCount)
+recyclerView.adapter.notifyItemRemoved(removePos)
+```
+![默认动画效果](./res/default_item_animator.gif)
 
-    override fun init() {
-        val data = (1..20).map { "pos $it" }.toMutableList()
-        rv_main.layoutManager = GridLayoutManager(this, 3)
-        rv_main.adapter = RvAdapter(this, data)
 
+## ItemTouchHelper
+拖拽改变item位置以及滑动删除功能我们使用系统提供的 `ItemTouchHelper` 即可
+```Kotlin
         // 添加滑动/拖拽功能
         // java的匿名内部类对应过来就是object对象表达式了
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -67,7 +63,7 @@ class DragSwipeActivity : BaseActivity() {
                 super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
                 // 移动完成后修改列表位置并刷新列表
                 Collections.swap(data, viewHolder!!.adapterPosition, target!!.adapterPosition)
-                rv_main.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
+                recyclerView.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
             }
 
             /**
@@ -75,7 +71,7 @@ class DragSwipeActivity : BaseActivity() {
              * */
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
                 data.removeAt(viewHolder!!.adapterPosition)
-                rv_main.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
+                recyclerView.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
                 toast("删除成功")
             }
 
@@ -89,20 +85,9 @@ class DragSwipeActivity : BaseActivity() {
              * */
             override fun isLongPressDragEnabled() = true
 
-        }).attachToRecyclerView(rv_main)
-    }
+        }).attachToRecyclerView(recyclerView)
+```
 
-    /**
-     * direction : 指明itemView是上浮还是下沉,当某个itemView被选中时,则其上浮
-     * */
-    private fun touchAnimation(view: View, direction: Int) {
-        logi("direction $direction")
-        val animator = if (direction == 0)
-            ObjectAnimator.ofFloat(view, "translationZ", 1f, 100f)
-        else
-            ObjectAnimator.ofFloat(view, "translationZ", 100f, 1f)
-        animator.interpolator = DecelerateInterpolator()
-        animator.duration = 10
-        animator.start()
-    }
-}
+![拖拽-滑动效果](./res/drag_swipe.gif)
+
+>遗留问题: 在Gird布局中,向右swipe item的时候,中间item的z高度貌似比右侧item的z高度小,导致它是从其右侧的item下方滑出界面的,这个我还没处理掉
