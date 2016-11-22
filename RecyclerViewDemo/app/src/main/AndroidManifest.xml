@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".DefaultAnimatorActivity"/>
         <activity android:name=".DragSwipeActivity"/>
+        <activity android:name=".MultiTypeItemActivity"/>
     </application>
 
 </manifest>

@@ -16,5 +16,9 @@ class MainActivity : BaseActivity() {
         btn_drag_swipe.setOnClickListener {
             startActivity(Intent(this@MainActivity, DragSwipeActivity::class.java))
         }
+
+        btn_multi_type.setOnClickListener {
+            startActivity(Intent(this@MainActivity, MultiTypeItemActivity::class.java ))
+        }
     }
 }
