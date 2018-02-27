@@ -27,10 +27,9 @@ class MultiTypeAdapter(var mData: MutableList<BaseItem>, var mPool: MultiTypePoo
 
     override fun getItemViewType(position: Int) = mPool.getTypeIndex(mData[position].javaClass)
 
-    override fun getItemCount() = mData!!.size
+    override fun getItemCount() = mData.size
 
     fun addMultiTypeItem(clazz: Class<out BaseItem>, viewImpl: BaseItemViewImpl) {
         mPool.addMultiType(clazz, viewImpl)
     }
-
 }
