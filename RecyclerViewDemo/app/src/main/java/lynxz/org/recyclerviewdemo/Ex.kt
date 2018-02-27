@@ -1,8 +1,8 @@
 package lynxz.org.recyclerviewdemo
 
 import android.app.Activity
-import android.app.Fragment
-import android.util.Log
+import android.app.Application
+import android.text.TextUtils
 import android.widget.Toast
 
 /**
@@ -10,39 +10,40 @@ import android.widget.Toast
  * description : 扩展方法
  */
 
-// toast提示快捷方法
-fun Activity.toast(msg: String, duration: Int) {
-    Toast.makeText(this, msg, duration).show()
+fun CharSequence.isEmpty(): Boolean {
+    return TextUtils.isEmpty(this)
 }
 
-fun Activity.toast(msg: Int, duration: Int) {
-    Toast.makeText(this, msg, duration).show()
+fun android.support.v4.app.Fragment.showToast(msg: String) {
+    activity.showToast(msg)
 }
 
-fun Activity.toast(msg: String) {
-    this.toast(msg, Toast.LENGTH_SHORT)
+fun android.support.v4.app.Fragment.showToast(msgId: Int) {
+    activity.showToast(msgId)
 }
 
-fun Activity.toast(msg: Int) {
-    this.toast(msg, Toast.LENGTH_SHORT)
+fun Activity.showToast(msgId: Int) {
+    application.showToast(msgId)
 }
 
-
-// 日志打印
-var debugMode = true
-
-fun Activity.logi(msg: String) {
-    logi(this.localClassName, msg)
+fun Activity.showToast(msg: String) {
+    application.showToast(msg)
 }
 
-fun Activity.logi(tag: String, msg: String) {
-    if (debugMode) Log.i(tag, msg)
+fun Application?.showToast(msg: String) {
+    this?.let {
+        Toast.makeText(this.applicationContext, msg, Toast.LENGTH_SHORT).show()
+    }
 }
 
-fun Fragment.logi(tag: String, msg: String) {
-    activity.logi(tag, msg)
+fun Application?.showToast(msgId: Int) {
+    this?.let {
+        Toast.makeText(this.applicationContext, msgId, Toast.LENGTH_SHORT).show()
+    }
 }
 
-fun Fragment.logi(msg: String) {
-    logi(activity.localClassName, msg)
+inline fun debugConf(code: () -> Unit) {
+    if (BuildConfig.DEBUG) {
+        code()
+    }
 }

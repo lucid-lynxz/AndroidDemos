@@ -1,9 +1,10 @@
-package lynxz.org.recyclerviewdemo
+package lynxz.org.recyclerviewdemo.activity
 
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_rv.*
 import lynxz.org.multitypeadapter.BaseItem
 import lynxz.org.multitypeadapter.MultiTypeAdapter
+import lynxz.org.recyclerviewdemo.R
 import lynxz.org.recyclerviewdemo.multi.*
 import java.util.*
 
@@ -12,9 +13,9 @@ import java.util.*
  * description : recyclerView多种item布局的实现
  */
 class MultiTypeItemActivity : BaseActivity() {
-    override fun getLayoutId() = R.layout.activity_rv
+    override fun getLayoutRes() = R.layout.activity_rv
 
-    override fun init() {
+    override fun afterCreate() {
         var mData = ArrayList<BaseItem>().toMutableList()
         var adapter = MultiTypeAdapter(mData)
         rv_main.layoutManager = LinearLayoutManager(this)

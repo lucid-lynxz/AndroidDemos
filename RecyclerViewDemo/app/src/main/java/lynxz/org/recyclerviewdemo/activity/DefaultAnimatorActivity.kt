@@ -1,18 +1,20 @@
-package lynxz.org.recyclerviewdemo
+package lynxz.org.recyclerviewdemo.activity
 
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import kotlinx.android.synthetic.main.activity_rv.*
+import lynxz.org.recyclerviewdemo.R
+import lynxz.org.recyclerviewdemo.adapter.RvAdapter
 
 /**
  * 测试 RecyclerView 提供的 DefaultItemAnimator 效果
  * */
 class DefaultAnimatorActivity : BaseActivity() {
-    override fun getLayoutId() = R.layout.activity_rv
+    override fun getLayoutRes() = R.layout.activity_rv
 
-    override fun init() {
+    override fun afterCreate() {
         ll_controller.visibility = View.VISIBLE
         rv_main.layoutManager = LinearLayoutManager(this)
         var data = (1..3).map { "pos $it" }.toMutableList()

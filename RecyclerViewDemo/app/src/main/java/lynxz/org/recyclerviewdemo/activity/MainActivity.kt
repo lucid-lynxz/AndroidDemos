@@ -1,12 +1,13 @@
-package lynxz.org.recyclerviewdemo
+package lynxz.org.recyclerviewdemo.activity
 
 import android.content.Intent
 import kotlinx.android.synthetic.main.activity_main.*
+import lynxz.org.recyclerviewdemo.R
 
 class MainActivity : BaseActivity() {
-    override fun getLayoutId() = R.layout.activity_main
+    override fun getLayoutRes() = R.layout.activity_main
 
-    override fun init() {
+    override fun afterCreate() {
         //跳转到默认的动画示例页面
         btn_default.setOnClickListener {
             startActivity(Intent(this@MainActivity, DefaultAnimatorActivity::class.java))
@@ -18,7 +19,10 @@ class MainActivity : BaseActivity() {
         }
 
         btn_multi_type.setOnClickListener {
-            startActivity(Intent(this@MainActivity, MultiTypeItemActivity::class.java ))
+            startActivity(Intent(this@MainActivity, MultiTypeItemActivity::class.java))
+        }
+        btn_group_decoration.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GroupTitleRvActivity::class.java))
         }
     }
 }

@@ -1,9 +1,13 @@
-package lynxz.org.recyclerviewdemo
+package lynxz.org.recyclerviewdemo.activity
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import kotlinx.android.synthetic.main.activity_rv.*
+import lynxz.org.recyclerviewdemo.OnRecyclerItemClickListener
+import lynxz.org.recyclerviewdemo.R
+import lynxz.org.recyclerviewdemo.adapter.RvAdapter
+import lynxz.org.recyclerviewdemo.showToast
 import java.util.*
 
 
@@ -12,9 +16,9 @@ import java.util.*
  * description : 拖拽-滑动 item 示例
  */
 class DragSwipeActivity : BaseActivity() {
-    override fun getLayoutId() = R.layout.activity_rv
+    override fun getLayoutRes() = R.layout.activity_rv
 
-    override fun init() {
+    override fun afterCreate() {
         val data = (1..10).map { "pos $it" }.toMutableList()
         //        data.map { logi("$it") }
         rv_main.layoutManager = GridLayoutManager(this, 3)
@@ -24,7 +28,7 @@ class DragSwipeActivity : BaseActivity() {
         val clickListener: OnRecyclerItemClickListener = object : OnRecyclerItemClickListener(rv_main) {
             override fun <T : RecyclerView.ViewHolder> onItemClick(vh: T) {
                 if (vh is RvAdapter.VHolder) {
-                    toast("${vh.tv.text}")
+                    showToast("${vh.tv.text}")
                 }
             }
 
@@ -83,7 +87,7 @@ class DragSwipeActivity : BaseActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
                 data.removeAt(viewHolder!!.adapterPosition)
                 rv_main.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
-                toast("删除成功")
+                showToast("删除成功")
             }
 
             /**

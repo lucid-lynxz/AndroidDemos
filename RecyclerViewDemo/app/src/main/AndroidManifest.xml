@@ -8,16 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".DefaultAnimatorActivity"/>
-        <activity android:name=".DragSwipeActivity"/>
-        <activity android:name=".MultiTypeItemActivity"/>
+        <activity android:name=".activity.DefaultAnimatorActivity"/>
+        <activity android:name=".activity.DragSwipeActivity"/>
+        <activity android:name=".activity.MultiTypeItemActivity"/>
+        <activity android:name=".activity.GroupTitleRvActivity"/>
     </application>
 
 </manifest>

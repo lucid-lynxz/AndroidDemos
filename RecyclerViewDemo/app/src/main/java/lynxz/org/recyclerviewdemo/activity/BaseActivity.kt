@@ -1,27 +1,29 @@
-package lynxz.org.recyclerviewdemo
+package lynxz.org.recyclerviewdemo.activity
 
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 
 /**
  * Created by Lynxz on 2016/11/16.
- * description :
+ * 博客: https://juejin.im/user/5812c2b0570c3500605a15ff
  */
 abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
-        init()
+        setContentView(getLayoutRes())
+        afterCreate()
     }
 
     /**
      * 初始化数据
      * */
-    abstract fun init()
+    abstract fun afterCreate()
 
     /**
      * 设置布局id
      * */
-    abstract fun getLayoutId(): Int
+    @LayoutRes
+    abstract fun getLayoutRes(): Int
 }
