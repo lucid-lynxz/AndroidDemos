@@ -44,4 +44,18 @@ target_link_libraries( # Specifies the target library.
                        ${log-lib} )
 
 
+##### 添加版本号信息到源代码中 #####
+# 1. 设置版本号值
+set (VERSION_MAJOR 3)
+set (VERSION_MINOR 8)
 
+# configure a header file to pass some of the CMake settings to the source code
+# 2. 设置 `app/Config.h.in` 文件(自行创建)编译后生成 `Config.h`
+# 在 `app/Config.h.in` 中定义相关变量
+configure_file (
+  "${PROJECT_SOURCE_DIR}/Config.h.in"
+  "${PROJECT_BINARY_DIR}/Config.h"
+  )
+
+# 3. 将 `Config.h` 所在目录设定为头文件目录
+include_directories("${PROJECT_BINARY_DIR}")
