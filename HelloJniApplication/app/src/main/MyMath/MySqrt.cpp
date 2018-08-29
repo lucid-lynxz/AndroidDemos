@@ -3,7 +3,7 @@
 //
 
 #include "MySqrt.h"
-#include "../main/cpp/AndroidLog.h"
+#include "../cpp/AndroidLog.h"
 
 double mySqrt(double x) {
     if (x <= 0) {

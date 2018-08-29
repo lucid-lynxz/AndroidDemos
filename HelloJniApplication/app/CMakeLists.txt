@@ -42,10 +42,34 @@ target_link_libraries( # Specifies the target library.
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib}
-
-                       # MathFunc 是自定义的 MathFunctions/CMakeLists.txt 中指定生成的库
-                       MathFunc
 )
+
+
+##### 配置开关选项 #####
+# 默认为 OFF, 注意: 每次改变 ON/OFF 值,请务必清理 CMakeCache.txt 和 CMakeFile
+# 简单粗暴的做法就是删除 app/build 目录 或者执行 as菜单: build-refresh linked c++ projects
+option (use_my_math_lib "Use mySqrtLib" off)
+
+##### 添加一个自定义库 #####
+# 1. 创建一个目录用于方式独立的库,如: app/src/MathFunctions
+# 2. 在创建的目录中添加 CMakeLists.txt 并按需增加c++源代码
+# 3. 配置编译任务:
+# 添加头文件搜索目录
+if(use_my_math_lib)
+    set(my_math_lib_path "${CMAKE_SOURCE_DIR}/src/main/MyMath")
+    include_directories (${my_math_lib_path})
+    # 将指定的文件夹加到build任务列表
+    add_subdirectory (./src/main/MyMath)
+    set (ENABLE_MY_MATH_LIB 1)
+    target_link_libraries( # Specifies the target library.
+                           native-lib
+
+                           # MathFunc 是自定义的 MyMath/CMakeLists.txt 中指定生成的库
+                           MathFunc
+    )
+else()
+    set (ENABLE_MY_MATH_LIB 0)
+endif()
 
 
 ##### 添加版本号信息到源代码中 #####
@@ -63,13 +87,3 @@ configure_file (
 
 # 3. 将 `Config.h` 所在目录设定为头文件目录
 include_directories("${PROJECT_BINARY_DIR}")
-
-##### 添加一个自定义库 #####
-# 1. 创建一个目录用于方式独立的库,如: app/src/MathFunctions
-# 2. 在创建的目录中添加 CMakeLists.txt 并按需增加c++源代码
-# 3. 配置编译任务:
-# 添加头文件搜索目录
-set(my_math_lib_path "${CMAKE_SOURCE_DIR}/src/MathFunctions")
-include_directories (${my_math_lib_path})
-# 将指定的文件夹加到build任务列表
-add_subdirectory (./src/MathFunctions)
