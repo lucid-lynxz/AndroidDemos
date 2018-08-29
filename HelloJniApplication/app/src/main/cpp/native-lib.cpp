@@ -3,7 +3,8 @@
 #include "AndroidLog.h"
 #include "Config.h"
 
-#if USE_MY_MATH_LIB == 1
+//#if ENABLE_MY_MATH_LIB == 1
+#ifdef use_my_math_lib
 
 #include "../MyMath/MySqrt.h"
 
@@ -17,9 +18,10 @@ Java_org_lynxz_hellojniapplication_MainActivity_stringFromJNI(
     std::string hello = "Hello from C++";
 
     // 导入的 Config.h 在 AS 中标红提示错误,但运行时是存在的
-    LOGD("jni version %d %d, useMyLib = %d", VERSION_MAJOR, VERSION_MINOR, USE_MY_MATH_LIB);
+    LOGD("jni version %d %d", VERSION_MAJOR, VERSION_MINOR);
 
-#if USE_MY_MATH_LIB == 1
+//#if ENABLE_MY_MATH_LIB == 1
+#ifdef use_my_math_lib
     mySqrt(50);
 #endif
     return env->NewStringUTF(hello.c_str());

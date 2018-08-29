@@ -1,4 +1,5 @@
 // @VERSION_MAJOR@ 表示在 CMakeLists.txt 中定义的变量值
 #define VERSION_MAJOR @VERSION_MAJOR@
 #define VERSION_MINOR @VERSION_MINOR@
-#define USE_MY_MATH_LIB @ENABLE_MY_MATH_LIB@
+// #define ENABLE_MY_MATH_LIB @ENABLE_MY_MATH_LIB@
+#cmakedefine use_my_math_lib

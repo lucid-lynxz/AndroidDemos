@@ -48,7 +48,8 @@ target_link_libraries( # Specifies the target library.
 ##### 配置开关选项 #####
 # 默认为 OFF, 注意: 每次改变 ON/OFF 值,请务必清理 CMakeCache.txt 和 CMakeFile
 # 简单粗暴的做法就是删除 app/build 目录 或者执行 as菜单: build-refresh linked c++ projects
-option (use_my_math_lib "Use mySqrtLib" off)
+# option 定义的变量可结合 `configure_file{}` 使用 `#cmakedefine use_my_math_lib` 来确定是ON或者OFF
+option (use_my_math_lib "Use mySqrtLib" on)
 
 ##### 添加一个自定义库 #####
 # 1. 创建一个目录用于方式独立的库,如: app/src/MathFunctions
@@ -60,7 +61,7 @@ if(use_my_math_lib)
     include_directories (${my_math_lib_path})
     # 将指定的文件夹加到build任务列表
     add_subdirectory (./src/main/MyMath)
-    set (ENABLE_MY_MATH_LIB 1)
+    # set (ENABLE_MY_MATH_LIB 1)
     target_link_libraries( # Specifies the target library.
                            native-lib
 
@@ -68,7 +69,7 @@ if(use_my_math_lib)
                            MathFunc
     )
 else()
-    set (ENABLE_MY_MATH_LIB 0)
+    # set (ENABLE_MY_MATH_LIB 0)
 endif()
 
 
