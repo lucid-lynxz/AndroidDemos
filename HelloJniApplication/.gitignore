@@ -7,5 +7,3 @@ build/
 /captures
 .externalNativeBuild
 schemas/
-README.md
-app/libs/

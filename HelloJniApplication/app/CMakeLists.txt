@@ -41,7 +41,11 @@ target_link_libraries( # Specifies the target library.
 
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib} )
+                       ${log-lib}
+
+                       # MathFunc 是自定义的 MathFunctions/CMakeLists.txt 中指定生成的库
+                       MathFunc
+)
 
 
 ##### 添加版本号信息到源代码中 #####
@@ -59,3 +63,13 @@ configure_file (
 
 # 3. 将 `Config.h` 所在目录设定为头文件目录
 include_directories("${PROJECT_BINARY_DIR}")
+
+##### 添加一个自定义库 #####
+# 1. 创建一个目录用于方式独立的库,如: app/src/MathFunctions
+# 2. 在创建的目录中添加 CMakeLists.txt 并按需增加c++源代码
+# 3. 配置编译任务:
+# 添加头文件搜索目录
+set(my_math_lib_path "${CMAKE_SOURCE_DIR}/src/MathFunctions")
+include_directories (${my_math_lib_path})
+# 将指定的文件夹加到build任务列表
+add_subdirectory (./src/MathFunctions)

@@ -4,7 +4,7 @@
 
 #include <android/log.h>
 
-#define TAG  "OIFI_X_NATIVE_TAG"
+#define TAG  "helloJniTag"
 // 发布正式版时,请改为0
 #define ENABLE_LOG 1
 
