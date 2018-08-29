@@ -1,0 +1,3 @@
+// @VERSION_MAJOR@ 表示在 CMakeLists.txt 中定义的变量值
+#define VERSION_MAJOR @VERSION_MAJOR@
+#define VERSION_MINOR @VERSION_MINOR@
