@@ -6,5 +6,6 @@
 build/
 /captures
 .externalNativeBuild
-*.jks
 schemas/
+README.md
+app/libs/
