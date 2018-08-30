@@ -1,10 +1,18 @@
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
+# 注意: cmake 指令的大小写无关, 但参数大小写敏感
 # Sets the minimum version of CMake required to build the native library.
-
 cmake_minimum_required(VERSION 3.4.1)
 #SET(CMAKE_BUILE_TYPE RELEASE)
+
+# 指令: PROJECT(projectname [CXX] [C] [Java]) 来设置工程名称以及支持的语言
+# 设置后, cmake 就创建了两个变量: <projectname>_BINARY_DIR 以及 <projectname>_SOURCE_DIR
+# 另外 cmake 系统预定义了 PROJECT_BINARY_DIR 和 PROJECT_SOURCE_DIR 变量,
+# 他们的值分别跟 <projectname>_BINARY_DIR 以及 <projectname>_SOURCE_DIR 一致
+# 建议直接使用 PROJECT_BINARY_DIR 和 PROJECT_SOURCE_DIR 避免后续修改项目名后也要同时修改变量名的问题
+# PROJECT(HelloJni CXX)
+
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -74,6 +82,11 @@ else(use_my_math_lib)
 endif(use_my_math_lib)
 
 # 通过message来打印信息
+# 指令语法: MESSAGE([SEND_ERROR | STATUS | FATAL_ERROR] "message to display"...)
+#       SEND_ERROR: 产生错误，生成过程被跳过
+#       SATUS: 输出前缀为—的信息
+#       FATAL_ERROR: 立即终止所有cmake过程
+# 以下指令,可以把变量写在引号内也可以写在引号外
 message("use_my_math_lib status =  ${use_my_math_lib}")
 message(STATUS "the project_binary_dir is : " ${PROJECT_BINARY_DIR})
 message(STATUS "the project_source_dir is : " ${PROJECT_SOURCE_DIR})
