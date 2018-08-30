@@ -4,6 +4,7 @@
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.4.1)
+#SET(CMAKE_BUILE_TYPE RELEASE)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -68,10 +69,14 @@ if(use_my_math_lib)
                            # MathFunc 是自定义的 MyMath/CMakeLists.txt 中指定生成的库
                            MathFunc
     )
-else()
+else(use_my_math_lib)
     # set (ENABLE_MY_MATH_LIB 0)
-endif()
+endif(use_my_math_lib)
 
+# 通过message来打印信息
+message("use_my_math_lib status =  ${use_my_math_lib}")
+message(STATUS "the project_binary_dir is : " ${PROJECT_BINARY_DIR})
+message(STATUS "the project_source_dir is : " ${PROJECT_SOURCE_DIR})
 
 ##### 添加版本号信息到源代码中 #####
 # 1. 设置版本号值

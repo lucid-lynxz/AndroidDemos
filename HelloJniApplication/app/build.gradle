@@ -21,6 +21,8 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++11"
+                // 指定输出的abi, 现在ndk默认没输出 armeabi 了
+                // abiFilters "armeabi", "armeabi-v7a", 'arm64-v8a', 'x86', 'x86_64'
             }
         }
         // manifestPlaceholders = []
