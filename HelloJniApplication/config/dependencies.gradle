@@ -24,7 +24,7 @@ ext {
     // 仿微信图片压缩,生成jpeg图片
     lubanVersion = '1.1.8'
 
-    kotlinLibVersion = '1.2.60'
+    kotlinLibVersion = '1.2.61'
 
     glideVersion = "3.8.0"
     materialprogressbarVersion = "1.4.1"

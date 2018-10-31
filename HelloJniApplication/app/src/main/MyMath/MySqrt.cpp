@@ -4,10 +4,17 @@
 
 #include "MySqrt.h"
 #include "../cpp/AndroidLog.h"
+#include <string>
+
+MyException::MyException(int16_t errNo, std::string errMsg) {
+    this->errNo = errNo;
+    this->errMsg = errMsg;
+}
 
 double mySqrt(double x) {
     if (x <= 0) {
-        return 0;
+        throw MyException(-1, "input invalide: must be >=0 but input: " + to_string(x));
+//        return 0;
     }
 
     double result;

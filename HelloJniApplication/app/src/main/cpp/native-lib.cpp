@@ -22,7 +22,16 @@ Java_org_lynxz_hellojniapplication_MainActivity_stringFromJNI(
 
 //#if ENABLE_MY_MATH_LIB == 1
 #ifdef use_my_math_lib
-    mySqrt(50);
+    try {
+        mySqrt(50);
+        // 若未 try...catch,则程序会崩溃报错: Fatal signal 6 (SIGABRT)
+        mySqrt(-5);
+    } catch (MyException e) {
+        LOGD("error occurs as %d %s ", e.errNo, e.errMsg.c_str());
+    }
 #endif
+
     return env->NewStringUTF(hello.c_str());
 }
+
+
