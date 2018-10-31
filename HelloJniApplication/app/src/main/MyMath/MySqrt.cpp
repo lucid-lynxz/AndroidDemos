@@ -11,7 +11,7 @@ MyException::MyException(int16_t errNo, std::string errMsg) {
     this->errMsg = errMsg;
 }
 
-double mySqrt(double x) {
+double mySqrt(double x) throw(MyException) {
     if (x <= 0) {
         throw MyException(-1, "input invalide: must be >=0 but input: " + to_string(x));
 //        return 0;
