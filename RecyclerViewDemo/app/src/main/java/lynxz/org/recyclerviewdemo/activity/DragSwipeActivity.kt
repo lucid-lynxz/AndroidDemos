@@ -3,11 +3,11 @@ package lynxz.org.recyclerviewdemo.activity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import cn.soundbus.sdx.showToast
 import kotlinx.android.synthetic.main.activity_rv.*
 import lynxz.org.recyclerviewdemo.OnRecyclerItemClickListener
 import lynxz.org.recyclerviewdemo.R
 import lynxz.org.recyclerviewdemo.adapter.RvAdapter
-import lynxz.org.recyclerviewdemo.showToast
 import java.util.*
 
 
@@ -42,11 +42,10 @@ class DragSwipeActivity : BaseActivity() {
         // 添加滑动/拖拽功能
         // java的匿名内部类对应过来就是object对象表达式了
         ItemTouchHelper(object : ItemTouchHelper.Callback() {
-
             /**
              * 设置itemView可以移动的方向
              * */
-            override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
+            override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
                 // 拖拽的标记，这里允许上下左右四个方向
                 val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or
                         ItemTouchHelper.RIGHT
@@ -59,14 +58,14 @@ class DragSwipeActivity : BaseActivity() {
              * 当一个Item被另外的Item替代时回调,也就是数据集的内容顺序改变
              * 返回true, onMoved()才会进行
              * */
-            override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 return true
             }
 
             /**
              *  当onMove返回true的时候回调,刷新列表
              * */
-            override fun onMoved(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, fromPos: Int, target: RecyclerView.ViewHolder?, toPos: Int, x: Int, y: Int) {
+            override fun onMoved(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, fromPos: Int, target: RecyclerView.ViewHolder, toPos: Int, x: Int, y: Int) {
                 super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
                 // 移动完成后修改列表位置并刷新列表
                 if (fromPos < toPos) {
@@ -78,15 +77,15 @@ class DragSwipeActivity : BaseActivity() {
                         Collections.swap(data, i, i - 1)
                     }
                 }
-                rv_main.adapter.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
+                rv_main.adapter?.notifyItemMoved(viewHolder!!.adapterPosition, target!!.adapterPosition)
             }
 
             /**
              * 滑动完成时回调,这里设置为滑动删除,删除相应数据后刷新列表
              * */
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-                data.removeAt(viewHolder!!.adapterPosition)
-                rv_main.adapter.notifyItemRemoved(viewHolder!!.adapterPosition)
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                data.removeAt(viewHolder.adapterPosition)
+                rv_main.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
                 showToast("删除成功")
             }
 

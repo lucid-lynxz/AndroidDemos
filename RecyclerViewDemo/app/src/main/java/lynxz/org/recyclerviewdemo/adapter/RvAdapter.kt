@@ -13,9 +13,10 @@ import lynxz.org.recyclerviewdemo.R
  * Created by Lynxz on 2016/11/16.
  * description :
  */
-class RvAdapter(var cxt: Context, var data: List<String> = listOf<String>(), var inflater: LayoutInflater = LayoutInflater.from(cxt)) : RecyclerView.Adapter<RvAdapter.VHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VHolder {
-        var view = inflater.inflate(R.layout.item, parent, false)
+class RvAdapter(var cxt: Context, var data: List<String> = mutableListOf(),
+                var inflater: LayoutInflater = LayoutInflater.from(cxt)) : RecyclerView.Adapter<RvAdapter.VHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHolder {
+        val view = inflater.inflate(R.layout.item, parent, false)
         return VHolder(view)
     }
 

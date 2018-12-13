@@ -1,18 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion sdk_version
-    buildToolsVersion build_tool_version
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion sdk_version
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -26,15 +26,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:$supportVersion"
-    compile "com.android.support:recyclerview-v7:$supportVersion"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-}
-repositories {
-    mavenCentral()
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation(test.junit)
+    androidTestImplementation(test.espresso)
+
+    implementation(libs.appcompat)
+    implementation(libs.recyclerView)
+    implementation(libs.kotlinLib)
 }

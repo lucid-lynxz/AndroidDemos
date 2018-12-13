@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion sdk_version
-    buildToolsVersion build_tool_version
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+
     defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        multiDexEnabled true
         applicationId "lynxz.org.recyclerviewdemo"
-        minSdkVersion 14
-        targetSdkVersion sdk_version
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -25,16 +28,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:design:$supportVersion"
-    compile "com.android.support:cardview-v7:$supportVersion"
-    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$baseRVHelperVersion"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation(test.junit)
+    androidTestImplementation(test.espresso)
+
+    implementation(libs.appcompat)
+    implementation(libs.supportDesign)
+    implementation(libs.cardView)
+    implementation(libs.kotlinLib)
+    implementation(libs.baseRecyclerViewAdapterHelper)
+
     compile(project(':multitypeadapter'))
-}
-repositories {
-    mavenCentral()
 }

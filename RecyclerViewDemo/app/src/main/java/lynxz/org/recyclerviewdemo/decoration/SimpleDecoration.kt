@@ -33,9 +33,9 @@ abstract class SimpleDecoration : RecyclerView.ItemDecoration() {
      * */
     abstract fun getGroupName(childAdapterPosition: Int): String?
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-        parent?.let {
+        parent.let {
             val childAdapterPosition = it.getChildAdapterPosition(view)
             val currentGroupName = getGroupName(childAdapterPosition)
 
@@ -47,15 +47,15 @@ abstract class SimpleDecoration : RecyclerView.ItemDecoration() {
             // 若 当前item与前一条item的 group name不一致, 表明是新的group,需要添加 group name
             if (childAdapterPosition == 0
                     || currentGroupName != getGroupName(childAdapterPosition - 1)) {
-                outRect?.top = groupNameHeight
+                outRect.top = groupNameHeight
             }
         }
     }
 
-    override fun onDrawOver(canvas: Canvas?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)
         // 绘制当前group name
-        parent?.let {
+        parent.let {
             val left = it.left + it.paddingLeft
             val right = it.right + it.paddingRight
             // 悬浮 group name 行需要移动的距离
@@ -80,8 +80,8 @@ abstract class SimpleDecoration : RecyclerView.ItemDecoration() {
                 val viewTop = item.top + it.paddingTop
 
                 if (pos == 0 || currentGroupName != getGroupName(pos - 1)) {
-                    canvas?.drawRect(left.toFloat(), viewTop.toFloat() - groupNameHeight, right.toFloat(), viewTop.toFloat(), mGroupNameRectPainter)
-                    canvas?.drawText(currentGroupName, left.toFloat(), (viewTop - groupNameHeight / 2).toFloat(), mGroupNamePainter)
+                    canvas.drawRect(left.toFloat(), viewTop.toFloat() - groupNameHeight, right.toFloat(), viewTop.toFloat(), mGroupNameRectPainter)
+                    canvas.drawText(currentGroupName, left.toFloat(), (viewTop - groupNameHeight / 2).toFloat(), mGroupNamePainter)
 
                     if (viewTop in groupNameHeight..2 * groupNameHeight) {
                         offsetY = (viewTop - 2 * groupNameHeight).toFloat()
@@ -93,11 +93,11 @@ abstract class SimpleDecoration : RecyclerView.ItemDecoration() {
                     return
                 }
 
-                canvas?.save()
-                canvas?.translate(0f, offsetY)
-                canvas?.drawRect(left.toFloat(), 0f, right.toFloat(), groupNameHeight.toFloat(), mGroupNameRectPainter)
-                canvas?.drawText(topGroupName, left.toFloat(), groupNameHeight / 2.toFloat(), mGroupNamePainter)
-                canvas?.restore()
+                canvas.save()
+                canvas.translate(0f, offsetY)
+                canvas.drawRect(left.toFloat(), 0f, right.toFloat(), groupNameHeight.toFloat(), mGroupNameRectPainter)
+                canvas.drawText(topGroupName, left.toFloat(), groupNameHeight / 2.toFloat(), mGroupNamePainter)
+                canvas.restore()
             }
         }
     }

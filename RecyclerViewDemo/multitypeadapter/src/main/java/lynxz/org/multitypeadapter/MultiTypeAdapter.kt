@@ -9,10 +9,11 @@ import android.view.ViewGroup
  * Created by Lynxz on 2016/11/22.
  * description : 多种布局的适配器
  */
-class MultiTypeAdapter(var mData: MutableList<BaseItem>, var mPool: MultiTypePool = MultiTypePool()) : RecyclerView.Adapter<ViewHolder>() {
+class MultiTypeAdapter(var mData: MutableList<BaseItem>, var mPool: MultiTypePool = MultiTypePool())
+    : RecyclerView.Adapter<ViewHolder>() {
     var inflater: LayoutInflater? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         if (inflater == null) {
             inflater = LayoutInflater.from(parent.context)
         }

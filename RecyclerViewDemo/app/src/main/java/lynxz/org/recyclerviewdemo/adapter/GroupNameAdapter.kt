@@ -17,13 +17,13 @@ class GroupNameAdapter(private var cxt: Context,
                        private var dataList: List<GroupItem> = mutableListOf()) : RecyclerView.Adapter<GroupNameAdapter.GpViewHolder>() {
     private val mLayoutInflater by lazy { LayoutInflater.from(cxt) }
 
-    override fun onBindViewHolder(holder: GpViewHolder?, position: Int) {
-        holder?.tvName?.text = dataList[position].content
+    override fun onBindViewHolder(holder: GpViewHolder, position: Int) {
+        holder.tvName.text = dataList[position].content
     }
 
     override fun getItemCount() = dataList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = GpViewHolder(mLayoutInflater.inflate(R.layout.item_group_name, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = GpViewHolder(mLayoutInflater.inflate(R.layout.item_group_name, parent, false))
 
     inner class GpViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView by lazy {

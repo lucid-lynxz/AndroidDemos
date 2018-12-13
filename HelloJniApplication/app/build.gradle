@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: "../config/sign.gradle"
 
+def developMode = false
+def use_encrypt_so = true
+
 android {
     compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
@@ -16,7 +19,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags "-std=c++11"
+                if (developMode) {
+                    path "CMakeLists.txt"
+                    cppFlags "-std=c++11"
+                }
                 // 指定输出的abi, 现在ndk默认没输出 armeabi 了
                 // abiFilters "armeabi", "armeabi-v7a", 'arm64-v8a', 'x86', 'x86_64'
             }
@@ -41,6 +47,19 @@ android {
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
+        }
+    }
+
+    sourceSets {
+        main {
+            // 根据配置的参数添加 native sdk的目录
+            if (!developMode) {
+                if (use_encrypt_so) {
+                    jniLibs.srcDirs = ['src/main/jni_jiagu']
+                } else {
+                    jniLibs.srcDirs = ['src/main/jni_normal']
+                }
+            }
         }
     }
 }
